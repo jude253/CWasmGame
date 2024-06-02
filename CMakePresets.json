@@ -6,7 +6,7 @@
             "description": "Default settings for my cmake project",
             "hidden": false,
             "generator": "Unix Makefiles",
-            "binaryDir": "${workspaceFolder}/build",
+            "binaryDir": "${workspaceFolder}/build/default",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "YES"
