@@ -8,8 +8,10 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 
 FIND_PACKAGE(Python3)
 set(PYTHON ${Python3_EXECUTABLE} CACHE STRING "Python path")
-set(EMSCRIPTEN_ROOT $ENV{EMSDK}/upstream/emscripten CACHE STRING "Emscripten path")
+set(EMSDK_ROOT ./include/emsdk CACHE STRING "Emsdk path")
+set(EMSCRIPTEN_ROOT ${EMSDK_ROOT}/upstream/emscripten CACHE STRING "Emscripten path")
 set(CMAKE_TOOLCHAIN_FILE ${EMSCRIPTEN_ROOT}/cmake/Modules/Platform/Emscripten.cmake)
+set(BUILD_DIR ./build)
 
 # Build Release by default
 set(CMAKE_BUILD_TYPE Release CACHE STRING "Build Type")
@@ -22,9 +24,15 @@ enable_testing()
 
 #######################################
 add_custom_command(
+  OUTPUT ${BUILD_DIR}
+  COMMAND rm -rf ${BUILD_DIR} && mkdir ${BUILD_DIR}
+  DEPENDS ${BUILD_DIR}
+  VERBATIM)
+
+add_custom_command(
   OUTPUT output.html output.js output.wasm
-  COMMAND emcc ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp --use-port=sdl2 -sLEGACY_GL_EMULATION -o output.html
-  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+  COMMAND ${EMSCRIPTEN_ROOT}/emcc ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp --use-port=sdl2 -sLEGACY_GL_EMULATION -o build/output.html
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp ${BUILD_DIR}
   VERBATIM)
 add_custom_target(CWasmGame ALL DEPENDS output.html output.js output.wasm)
 
