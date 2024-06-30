@@ -11,3 +11,19 @@ The project configuration was set up using these resources:
 - https://code.visualstudio.com/docs/cpp/CMake-linux
   - https://youtu.be/_BWU5mWqVA4ß
 - Emscripten docs: https://emscripten.org/
+
+## Build Commands
+
+#### Initial Project Setup
+
+```
+./setup_emscripten.sh
+
+# Run this on initial setup and after adjusting build scripts:
+cmake .
+```
+
+#### Standard Build Command
+```
+cmake --build .
+```

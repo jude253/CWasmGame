@@ -31,7 +31,7 @@ add_custom_command(
 
 add_custom_command(
   OUTPUT output.html output.js output.wasm
-  COMMAND ${EMSCRIPTEN_ROOT}/emcc ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp --use-port=sdl2 -sLEGACY_GL_EMULATION -o build/output.html
+  COMMAND ${EMSCRIPTEN_ROOT}/emcc ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp --use-port=sdl2 -sLEGACY_GL_EMULATION -o ${BUILD_DIR}/output.html
   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp ${BUILD_DIR}
   VERBATIM)
 add_custom_target(CWasmGame ALL DEPENDS output.html output.js output.wasm)
